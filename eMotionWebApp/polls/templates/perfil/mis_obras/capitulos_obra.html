@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}eMotion - Capítulos de {{ obra.titulo }}{% endblock title %}
+{% load static %}
+{% block content %}
+<div class="container mt-4 text-center">
+    <h1 class="animate__animated animate__fadeIn">Capítulos de {{ obra.titulo }}</h1>
+</div>
+<section class="py-5">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-2 row-cols-xl-3 justify-content-center">
+            {% for capitulo in capitulos %}
+            
+            <div class="col mb-5">
+        <div class="card h-100 shadow">
+        <img class="card-img-top mt-3" src="{% static "img/new_chapter.png" %}" alt="" />
+        <div class="card-body p-4">
+            <div class="text-center">
+            </div>
+        </div>
+        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+            <div class="text-center">
+                <h5 class="fw-bolder">{{ capitulo.titulo_capitulo }}</h5>
+            </div>
+            <div class="text-center mt-3">
+                {% if obra.capitulos.all %}
+                    {% with first_chapter=obra.capitulos.first %}
+                    <a class="btn btn-outline-dark mt-auto" href="{% url 'detalle_obra' obra_id=obra.id capitulo_id=first_chapter.id %}">Leer Capitulo</a>
+                    {% endwith %}
+                {% else %}
+                    <a class="btn btn-outline-dark mt-auto" href="{% url 'detalle_obra' obra_id=obra.id %}">Leer {{ obra.titulo }}</a>
+                {% endif %}
+            </div>
+            <div class="text-center">
+                <a class="btn btn-outline-primary mt-2" href="{% url 'editar_capitulo' capitulo.id %}">Editar Capítulo</a>
+            </div>
+            <div class="text-center">
+                <a class="btn btn-outline-danger mt-2" href="{% url 'eliminar_capitulo' capitulo.id %}">Eliminar Capítulo</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+            {% empty %}
+            <div class="container mt-4 text-center">
+                <h4 class="animate__animated animate__fadeIn">Tu obra aún no tiene capítulos, ¡agrega alguno!</h4>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+            <div class="text-center">
+                <a class="btn btn-outline-success mt-auto animate__animated animate__fadeInUp" href="{% url 'nuevoCapitulo' obra_id=obra.id %}">Agregar Capítulo</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

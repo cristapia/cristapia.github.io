@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}eMotion - Mis Obras{% endblock title %}
+{% load static %}
+{% block content %}
+<div class="container mt-4 text-center animate__animated animate__fadeIn">
+    <h1>Tus Obras</h1>
+</div>
+<section class="py-5">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-2 row-cols-xl-3 justify-content-center">
+            {% for obra in obras_usuario %}
+            <div class="col mb-5">
+                <div class="card h-100 shadow">
+                {% if obra.foto_obra %}
+                    <img class="portada" src="{{ obra.foto_obra.url }}" alt="{{ obra.titulo }}">
+                {% else %}
+                    <img class="portada" src="{% static "img/portada_default.png" %}" alt="">
+                {% endif %}
+                <div class="card-body p-4">
+                    <div class="text-center">
+                    </div>
+                </div>
+                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                    <div class="text-center">
+                        <h5 class="fw-bolder">{{ obra.titulo }}</h5>
+                    </div>
+                    <div class="text-center mt-3"><a class="btn btn-outline-dark mt-auto" href="{% url 'capitulos_obra' obra_id=obra.id %}">Ver Capítulos</a></div>
+                    <div class="text-center mt-2"><a class="btn btn-outline-primary mt-auto" href="{% url 'editar_obra' obra_id=obra.id %}">Editar Obra</a></div>
+                    <div class="text-center mt-2"><a class="btn btn-outline-danger mt-auto" href="{% url 'eliminar_obra' obra_id=obra.id %}">Eliminar Obra</a></div>
+                </div>
+            </div>
+            </div>
+            {% empty %}
+            <div class="container mt-4 text-center animate__animated animate__fadeIn">
+                <h4>Aún no cuentas con obras, ¡comienza creando una!</h4>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock content %}

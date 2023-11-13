@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}eMotion - Editar Capitulo - {{ capitulo.titulo_capitulo }}{% endblock title %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Editar Capitulo - {{ capitulo.titulo_capitulo }}</h2>
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <form method="post" class="rounded p-4 shadow">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-md-12 mb-3 pb-2 mt-3 text-center h2">
+              <label class="form-label text-center" for="form3Example1c">Titulo Capitulo</label>
+              <input type="text" name="titulo_capitulo" value="{{ form.titulo_capitulo.value }}" maxlength="100" required id="id_titulo_capitulo" class="form-control" placeholder="Titulo Capitulo">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 mb-3 pb-2 mt-2 text-center h2">
+              <label class="form-label" for="form3Example1c">Contenido</label>
+              <textarea name="contenido" cols="40" rows="20" required id="id_contenido" class="form-control">{{ form.contenido.value }}</textarea>
+          </div>
+        </div>
+        <div class="pt-2 text-center">
+          <button type="submit" class="button-75">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+

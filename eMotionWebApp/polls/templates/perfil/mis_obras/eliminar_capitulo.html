@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}eMotion - Eliminar Capitulo - {{ capitulo.titulo_capitulo }}{% endblock title %}
+{% load static %}
+{% block content %}
+<h2>Confirm Deletion</h2>
+<p>Estas seguro de que quieres eliminar este Capitulo?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Eliminar Capitulo</button>
+</form>
+{% endblock content %}

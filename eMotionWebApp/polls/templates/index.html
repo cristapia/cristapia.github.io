@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block title %}eMotion - Home{% endblock title %}
+{% load static %}
+
+{% block content %}
+<section class="intro-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <h3>¿Qué es eMotion?</h3>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-sm-6">
+        <p>eMotion es un portal web donde los usuarios pueden compartir sus obras literarias con otros usuarios y también compartir sus experiencias y conversar con otros autores sobre sus novelas, cuentos, poemas, etc. ¿Lo especial de eMotion es que las obras que nuestros usuarios suben están catalogadas por las emociones que causan, gracias a nuestra IA entrenada para clasificar obras literarias, que esperas? Créate un usuario y comparte tus obras con la gente de todo el mundo! 
+        </p>
+      </div>
+      <div class="col-sm-6">
+        <img src="{% static 'img/logo.png' %}" class="center img-fluid" alt="Logo">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how-it-works-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <h3>¿Cómo Funciona?</h3>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-sm-12">
+        <p>
+          eMotion es una plataforma literaria diseñada para conectar a los amantes de la escritura con la esencia de las emociones. Los usuarios pueden crear y compartir sus obras literarias, explorar un catálogo clasificado por emociones y conectarse con autores afines. Con una experiencia personalizada y un enfoque en la expresión emocional a través de la escritura, eMotion ofrece un espacio único para la comunidad literaria. Únete a nosotros y deja que tus palabras transmitan emociones. Regístrate hoy y comienza tu viaje literario.
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <img src="{% static 'img/como_funciona.png' %}" class="center img-fluid" alt="">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="featured-works-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <h3>Algunas Obras</h3>
+      </div>
+    </div>
+    <div class="container px-4 px-lg-5 mt-5">
+      <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+        {% for obra in obras %}
+        <div class="col mb-5">
+          <div class="card h-100">
+            {% if obra.foto_obra %}
+              <img class="portada" src="{{ obra.foto_obra.url }}" alt="{{ obra.titulo }}">
+            {% else %}
+              <img class="portada" src="{% static "img/portada_default.png" %}" alt="">
+            {% endif %}
+            <div class="card-body p-4">
+              <div class="text-center">
+              </div>
+            </div>
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center">
+                  <h5 class="fw-bolder">{{ obra.titulo }}</h5>
+                  Autor: {{ obra.usuario.username }}
+                </div>
+                <div class="text-center mt-3">
+                  {% if obra.capitulos.all %}
+                    {% with first_chapter=obra.capitulos.first %}
+                      <a class="btn btn-outline-dark mt-auto" href="{% url 'detalle_obra' obra_id=obra.id capitulo_id=first_chapter.id %}">Leer {{ obra.titulo }}</a>
+                    {% endwith %}
+                  {% else %}
+                    <a class="btn btn-outline-dark mt-auto" href="{% url 'detalle_obra' obra_id=obra.id %}">Leer {{ obra.titulo }}</a>
+                  {% endif %}
+                </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

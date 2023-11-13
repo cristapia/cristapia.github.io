@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}eMotion - Eliminar {{ obra.titulo }}{% endblock title %}
+{% load static %}
+{% block content %}
+<h2>Confirm Deletion</h2>
+<p>Estás seguro que quieres eliminar esta Obra?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Eliminar Obra</button>
+</form>
+{% endblock content %}

@@ -1,0 +1,83 @@
+{% extends 'librerias.html' %}
+{% block title %}eMotion - Registro{% endblock title %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+      <div class="row justify-content-center align-items-center h-100">
+        <div class="col-12 col-lg-9 col-xl-7">
+          <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+            <div class="card-body p-4 p-md-5">
+              <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Registrate en eMotion</h3>
+              <form method="POST">
+                {% csrf_token %}
+  
+                <div class="row">
+                    <div class="col-md-1 mb-4 pb-2 mt-5">
+                        <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>   
+                    </div>
+                    <div class="col-md-5 mb-4 pb-2">
+                        <div class="input-group">
+                            {{ form.username|as_crispy_field }}
+                        </div>
+    
+                    </div>
+
+                    <div class="col-md-1 mb-4 pb-2 mt-5">
+                        <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>   
+                    </div>
+                    <div class="col-md-5 mb-4 pb-2">
+                        <div class="input-group">
+                            {{ form.email|as_crispy_field }}
+                        </div>
+    
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-1 mb-4 pb-2 mt-5">
+                        <i class="fa fa-key fa-2x" aria-hidden="true"></i>   
+                    </div>
+                    <div class="col-md-5 mb-4 pb-2">
+                        <div class="input-group">
+                            {{ form.password1|as_crispy_field }}
+                        </div>
+    
+                    </div>
+
+                    <div class="col-md-1 mb-4 pb-2 mt-5">
+                        <i class="fa fa-unlock-alt fa-2x" aria-hidden="true"></i>   
+                    </div>
+                    <div class="col-md-5 mb-4 pb-2">
+                        <div class="input-group">
+                            {{ form.password2|as_crispy_field }}
+                        </div>
+    
+                    </div>
+                </div>
+
+                <div class="pt-2 text-center">
+                    <input class="button-75" type="submit" value="Registrarse" />
+                </div>
+
+                <div class="mt-1 pt-2 text-center">
+                    <div class="d-flex justify-content-center links">
+                        Ya tienes una cuenta? <a href="{% url 'login' %}" class="ml-2">Inicia Sesion</a>
+                    </div>
+                </div>
+
+                <div class="mt-1 pt-2 text-center">
+                    <div class="d-flex justify-content-center links">
+                        Volver a eMotion <a href="{% url 'index' %}" class="ml-2"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+  
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+{% endblock content %}

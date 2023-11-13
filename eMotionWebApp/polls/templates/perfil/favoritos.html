@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}eMotion - Mis Obras{% endblock title %}
+{% load static %}
+{% block content %}
+<div class="container mt-4 text-center animate__animated animate__fadeIn">
+    <h1>Obras Favoritas</h1>
+</div>
+<section class="py-5">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-2 row-cols-xl-4 justify-content-center">
+            {% for obra in user_likes_obras %}
+            <div class="col mb-5">
+                <div class="card h-100 shadow">
+                {% if obra.foto_obra %}
+                    <img class="portada" src="{{ obra.foto_obra.url }}" alt="{{ obra.titulo }}">
+                {% else %}
+                    <img class="portada" src="{% static "img/portada_default.png" %}" alt="">
+                {% endif %}
+                <div class="card-body p-4">
+                    <div class="text-center">
+                    </div>
+                </div>
+                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                    <div class="text-center">
+                        <h5 class="fw-bolder">{{ obra.titulo }}</h5>
+                        Autor: {{ obra.usuario.username }}
+                    </div>
+                    <div class="text-center mt-3">
+                    {% if obra.capitulos.all %}
+                        {% with first_chapter=obra.capitulos.first %}
+                            <a class="btn btn-outline-dark mt-auto" href="{% url 'detalle_obra' obra_id=obra.id capitulo_id=first_chapter.id %}">Leer Obra</a>
+                        {% endwith %}
+                    {% else %}
+                        <a class="btn btn-outline-dark mt-auto" href="{% url 'detalle_obra' obra_id=obra.id %}">Leer {{ obra.titulo }}</a>
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+            </div>
+            {% empty %}
+            <div class="container mt-4 text-center animate__animated animate__fadeIn">
+                <h4>No tienes obras favoritas, si le das Me Gusta a alguna apareceran aqui!</h4>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock content %}

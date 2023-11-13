@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}eMotion - Home{% endblock title %}
+{% load static %}
+{% block content %}
+<div class="container mt-4 text-center">
+  <h1>Obras Subidas</h1>
+</div>
+<section class="py-5">
+  <div class="container px-4 px-lg-5">
+      <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+          {% for obra in obras %}
+          <div class="col mb-5">
+            <div class="card h-100 shadow">
+              {% if obra.foto_obra %}
+                  <img class="portada" src="{{ obra.foto_obra.url }}" alt="{{ obra.titulo }}">
+              {% else %}
+                  <img class="portada" src="{% static "img/portada_default.png" %}" alt="">
+              {% endif %}
+              <div class="card-body p-4">
+                  <div class="text-center">
+                  </div>
+              </div>
+              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                  <div class="text-center">
+                    <h5 class="fw-bolder">{{ obra.titulo }}</h5>
+                  </div>
+                  <div class="text-center">
+                    <p>Autor: {{ obra.usuario.username }}</p>
+                  </div>
+                  <div class="text-center">
+                    <i class="fas fa-heart mr-2 red-heart"></i>{{ obra.total_likes }}
+                  </div>
+                  <div class="text-center mt-3">
+                    {% if obra.capitulos.all %}
+                      {% with first_chapter=obra.capitulos.first %}
+                        <a class="btn btn-outline-dark mt-auto" href="{% url 'detalle_obra' obra_id=obra.id capitulo_id=first_chapter.id %}">Leer {{ obra.titulo }}</a>
+                      {% endwith %}
+                    {% else %}
+                      <a class="btn btn-outline-dark mt-auto" href="">Aun no contiene capitulos</a>
+                    {% endif %}
+                  </div>
+              </div>
+          </div>
+        </div>
+        {% empty %}
+            <div class="container mt-4 text-center">
+                <h4>Aun no hay obras subidas, se el primero en subir una!</h4>
+            </div>
+          {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endblock %}

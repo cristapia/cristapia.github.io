@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}eMotion - Eliminar Comentario{% endblock title %}
+{% load static %}
+{% block content %}
+<h2>Confirm Deletion</h2>
+<p>Estás seguro que quieres eliminar este Comentario?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Eliminar Comentario</button>
+</form>
+{% endblock content %}

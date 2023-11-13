@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %}eMotion - Emociones{% endblock title %}
+{% load static %}
+{% block content %}
+<div class="container mt-4 text-center">
+  <h1>Emociones utilizadas en eMotion</h1>
+  <img src="{% static "img/logo.png" %}" width="360" length="360"/>
+</div>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="emocion-container" style="background-color: #e6e669;">
+        <h3>Felicidad</h3>
+        <p>Estado emocional positivo caracterizado por sentimientos de alegría, satisfacción y bienestar.</p>
+        <p>
+          La felicidad deriva a la gratitud, alegría, diversión, entusiasmo, amor, serenidad.
+        </p>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="emocion-container" style="background-color: #5151ff;">
+        <h3>Sorpresa</h3>
+        <p>Emoción transitoria y breve causada por una experiencia inesperada o inusual.</p>
+        <p>
+          La sorpresa generalmente llegará al asombro, admiración y confusión.
+        </p>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="emocion-container" style="background-color: #c44e4e;">
+        <h3>Ira</h3>
+        <p>Emoción que surge como respuesta a una provocación o percepción de injusticia o frustración.</p>
+        <p>
+          Sentir ésta emoción, lleva a la frustración, enojo y al resentimiento.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="emocion-container" style="background-color: #ffc6ff;">
+        <h3>Miedo</h3>
+        <p>Emoción de alerta y precaución ante una situación percibida como amenazante o peligrosa.</p>
+        <p>
+          La emoción del miedo lleva al agujero de la ansiedad, inseguridades, terror y la preocupación.
+        </p>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="emocion-container" style="background-color: #ffa854;">
+        <h3>Disgusto</h3>
+        <p>Emoción que surge ante estímulos que se perciben como desagradables o repulsivos.</p>
+        <p>
+          El disgusto no varía mucho al respecto, ya que, éste lleva al desprecio, aversión y el asco.
+        </p>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="emocion-container" style="background-color: #8cc68c;">
+        <h3>Tristeza</h3>
+        <p>Emoción relacionada con la pérdida, la aflicción y la sensación de soledad o desánimo.</p>
+        <p>
+          La tristeza siempre llevará a la pena, melancolía y a la desesperanza.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

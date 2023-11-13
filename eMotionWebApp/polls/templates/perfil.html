@@ -1,0 +1,130 @@
+{% extends 'base.html' %} 
+{% block title %}eMotion - Perfil de {{ user.username }}{% endblock title%} 
+{% load static %} 
+{% block content %}
+<section class="">
+  <div class="container">
+      <div class="row justify-content-center">
+          <div class="col-lg-4 mb-4 mb-sm-5 align-items-center">
+              <div class="card card-style1 border-0 shadow">
+                  <div class="card-body p-1-9 p-sm-2-3 p-md-6 p-lg-7">
+                      <div class="row justify-content-center text-center">
+                          <div class="col-lg-12 mb-4 mb-lg-0">
+                              {% if usuario.foto_perfil %}
+                                <img class="rounded-circle" src="{{ usuario.foto_perfil.url }}" alt="" width="170"
+                                height="170">
+                              {% else %}
+                                <img class="rounded-circle" src="{% static "img/perfil_default.png" %}" alt="" width="170"
+                                height="170">
+                              {% endif %}
+                          </div>
+                          <div class="col-lg-12 px-xl-10">
+                            <h3 class="font-weight-bold h2 mb-0">{{ usuario.first_name }} {{ usuario.last_name }}</h3>
+                            <p class="lead">@{{ usuario.username }}</p>
+                          </div>
+                          <div class="col-md-6 text-right">
+                            <i class="fas fa-heart fa-xl mr-3 red-heart"></i>{{ total_user_likes }}
+                          </div>
+                          <div class="col-md-6 text-left">
+                            <i class="fa-solid fa-user fa-xl mr-3"></i> 0
+                          </div>                      
+                      </div>
+                      <div class="row align-items-center justify-content-center">
+                        <div class="col-lg-6 mb-4 mb-lg-0 text-center">
+                          <h4 class="display-26 mt-3">Redes Sociales</h4>
+                          {% if usuario.facebook %}
+                            <a href="{{ usuario.facebook }}" target="_blank"><img src="{% static "img/fb_icon.png" %}" width="32" height="32"></img></a>
+                          {% endif %}
+                          {% if usuario.instagram %}
+                            <a href="{{ usuario.instagram }}" target="_blank"><img src="{% static "img/ig_icon.png" %}" width="32" height="32"></img></a>
+                          {% endif %}
+                          {% if usuario.twitter %}
+                            <a href="{{ usuario.twitter }}" target="_blank"><img src="{% static "img/twitter_icon.png" %}" width="32" height="32"></img></a>
+                          {% endif %}
+                          {% if usuario.tumblr %}
+                            <a href="{{ usuario.tumblr }}" target="_blank"><img src="{% static "img/tumblr_icon.png" %}" width="32" height="32"></img></a>
+                          {% endif %}
+                        </div>
+                      </div>
+                      <div class="row align-items-center justify-content-center">
+                        <div class="col-lg-6 mb-4 mb-lg-0 text-center">
+                          {% if request.user == usuario %}
+                            <a class="btn btn-outline-primary mt-3" href="{% url 'editar_perfil' usuario.username %}"><i class="fas fa-cog"></i> Editar Perfil</a>                       
+                          {% endif %}
+                        </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-6 mb-4 mb-sm-5">
+            <div class="card card-style1 border-0 shadow">
+              <div class="card-body p-1-9 p-sm-2-3 p-md-6 p-lg-7 text-center">
+                <div>
+                    <span class="section-title mb-3 mb-sm-4">Sobre mi</span>
+                    <p>{{ usuario.sobre_mi }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-12">
+              <div class="row">
+                  <div class="col-lg-12 mb-4 mb-sm-5">
+                    <div class="card card-style1 border-0 shadow">
+                      <div class="card-body p-1-9 p-sm-2-3 p-md-6 p-lg-7 text-center">
+                        <div class="mb-4 mb-sm-5">
+                            <span class="section-title mb-3 mb-sm-4">Mis Obras</span>
+                            <section class="py-5">
+                              <div class="container px-4 px-lg-5">
+                                  <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                                      {% for obra in user_obras %}
+                                      <div class="col mb-5">
+                                        <div class="card h-100">
+                                          {% if obra.foto_obra %}
+                                            <img class="portada" src="{{ obra.foto_obra.url }}" alt="{{ obra.titulo }}">
+                                          {% else %}
+                                            <img class="portada" src="{% static "img/portada_default.png" %}" alt="">
+                                          {% endif %}
+                                          <div class="card-body p-4">
+                                              <div class="text-center">
+                                              </div>
+                                          </div>
+                                          <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                              <div class="text-center">
+                                                <h5 class="fw-bolder">{{ obra.titulo }}</h5>
+                                              </div>
+                                              <div class="text-center mt-3">
+                                                {% if obra.capitulos.all %}
+                                                  {% with first_chapter=obra.capitulos.first %}
+                                                    <a class="btn btn-outline-dark mt-auto" href="{% url 'detalle_obra' obra_id=obra.id capitulo_id=first_chapter.id %}">Leer {{ obra.titulo }}</a>
+                                                  {% endwith %}
+                                                {% else %}
+                                                  <a class="btn btn-outline-dark mt-auto" href="{% url 'detalle_obra' obra_id=obra.id %}">Leer {{ obra.titulo }}</a>
+                                                {% endif %}
+                                              </div>
+                                          </div>
+                                      </div>
+                                    </div>
+                                    {% empty %}
+                                      <div class="container mt-4 text-center">
+                                        <h4>Este usuario aun no sube su primera obra!</h4>
+                                      </div>
+                                    {% endfor %}
+                                  </div>
+                                </div>
+                              </section>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card card-style1 border-0 shadow">
+                    <div class="card-body p-1-9 p-sm-2-3 p-md-6 p-lg-7">
+                      <span class="section-title mb-3 mb-sm-4">Comentarios</span>
+                      <p>Aun no hay comentarios.</p>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+{% endblock %}

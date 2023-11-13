@@ -1,0 +1,76 @@
+{% extends 'librerias.html' %}
+{% block title %}eMotion - Iniciar Sesion{% endblock title %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+      <div class="row justify-content-center align-items-center h-100">
+        <div class="col-12 col-lg-9 col-xl-7">
+          <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+            <div class="card-body p-4 p-md-5">
+              <h3 class="pb-2 pb-md-0 mb-md-3 text-center">Inicia Sesion en eMotion</h3>
+              <form method="POST">
+                {% csrf_token %}
+  
+                <div class="row">
+                    <div class="col-md-5 mb-3 pb-2 mt-3 text-center mx-auto">
+                        <label class="form-label" for="form3Example1c">Usuario</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fa fa-user-circle fa-lg" aria-hidden="true"></i>
+                            </span>
+                            <input type="text" name="username" placeholder="Usuario" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                
+
+                <div class="row">
+                    <div class="col-md-5 mb-4 pb-2 text-center mx-auto">
+                        <label class="form-label" for="form3Example3c">Contraseña</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="fa fa-key fa-lg" aria-hidden="true"></i>
+                            </span>
+                            <input type="password" name="password" placeholder="Contraseña" class="form-control" >
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 text-center mx-auto">
+                        {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="pt-2 text-center">
+                    <input class="button-75" type="submit" value="Iniciar Sesion" />
+                </div>
+
+                <div class="mt-1 pt-2 text-center">
+                    <div class="d-flex justify-content-center links">
+                        Aun no tienes una cuenta? <a href="{% url 'registro' %}" class="ml-2">Registrate!</a>
+                    </div>
+                </div>
+
+                <div class="mt-1 pt-2 text-center">
+                    <div class="d-flex justify-content-center links">
+                        Volver a eMotion <a href="{% url 'index' %}" class="ml-2"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+  
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+{% endblock content %}
